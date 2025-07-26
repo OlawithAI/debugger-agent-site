@@ -29,7 +29,7 @@ export default function Dashboard() {
   const [upgrading, setUpgrading] = useState(false);
   const [idToken, setIdToken] = useState<string>('');
   
-  //const [error, setError] = useState(null);
+  const [_error, setError] = useState(null);
 
   useEffect(() => {
     if (!loading && !user) {
