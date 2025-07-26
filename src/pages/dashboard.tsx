@@ -30,7 +30,7 @@ export default function Dashboard() {
   const [idToken, setIdToken] = useState<string>('');
   
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [error, setError] = useState(null);
+  //const [error, setError] = useState(null);
 
   useEffect(() => {
     if (!loading && !user) {
