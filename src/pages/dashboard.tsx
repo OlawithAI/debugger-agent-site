@@ -47,7 +47,7 @@ export default function Dashboard() {
           setUserData(data);
           setIdToken(idToken);
         } catch (error) {
-          if (process.env.NODE_ENV === 'development') console.error('...');
+          if (process.env.NODE_ENV === 'development') console.error('Login failed:', error);
 
         }  
       });
