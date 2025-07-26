@@ -13,8 +13,9 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    "baseUrl": "src",                       // ✅ ADD THIS LINE
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["*"]                         // ✅ MODIFY THIS LINE
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

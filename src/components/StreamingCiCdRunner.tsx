@@ -1,0 +1,129 @@
+import { useState } from 'react';
+import { useAuth } from '@/lib/useAuth';
+
+
+export default function StreamingCiCdRunner() {
+  const { user } = useAuth();
+  const [code, setCode] = useState('');
+  const [logs, setLogs] = useState('');
+  const [language, setLanguage] = useState('Python'); // ✅ Default language
+  const [output, setOutput] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [results, setResults] = useState<any>(null);
+
+  const handleRun = async () => {
+    if (!code.trim()) return alert('Please paste code to debug.');
+    setLoading(true);
+    setError('');
+    setOutput('');
+    setResults(null);
+
+    try {
+      const apiKey = localStorage.getItem('debugger_api_key');
+      if (!apiKey) {
+        console.error("❌ No API key found in localStorage.");
+        alert("Please go to /dashboard to fetch your API key first.");
+        return;
+      }
+
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/cicd/run-debug-and-sandbox`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': apiKey,
+        },
+        body: JSON.stringify({
+          code: code,
+          logs: logs || [],
+          language: language || "python",
+          github_meta: null,
+        }),
+      });
+
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error || 'Server error');
+      }
+
+      const data = await res.json();
+      setResults(data);
+    } catch (err: any) {
+      console.error(err);
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="space-y-4">
+      <div>
+        <label className="block text-sm font-medium">Language:</label>
+        <select
+          value={language}
+          onChange={(e) => setLanguage(e.target.value)}
+          className="p-2 border rounded w-full"
+        >
+          <option value="Python">Python</option>
+          <option value="JavaScript">JavaScript</option>
+          <option value="TypeScript">TypeScript</option>
+          <option value="Java">Java</option>
+          <option value="Go">Go</option>
+          <option value="C++">C++</option>
+        </select>
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium">Code:</label>
+        <textarea
+          value={code}
+          onChange={(e) => setCode(e.target.value)}
+          rows={8}
+          className="w-full p-2 border rounded font-mono text-sm"
+          placeholder="Paste your code here"
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium">Logs (optional):</label>
+        <textarea
+          value={logs}
+          onChange={(e) => setLogs(e.target.value)}
+          rows={4}
+          className="w-full p-2 border rounded font-mono text-sm"
+          placeholder="Paste logs or error messages here"
+        />
+      </div>
+
+      <button
+        onClick={handleRun}
+        disabled={loading}
+        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 disabled:opacity-50"
+      >
+        {loading ? 'Running...' : '🔁 Run Debug + Sandbox'}
+      </button>
+
+      {error && <p className="text-red-600 text-sm mt-2">❌ {error}</p>}
+
+      {results && (
+        <div className="mt-6 space-y-4">
+          <div>
+            <h3 className="font-semibold">🔍 Analysis</h3>
+            <pre className="bg-gray-100 p-3 rounded text-sm whitespace-pre-wrap">{results.analysis}</pre>
+          </div>
+          <div>
+            <h3 className="font-semibold">🛠️ Fixed Code</h3>
+            <pre className="bg-gray-100 p-3 rounded text-sm overflow-x-auto">{results.fixed_code}</pre>
+          </div>
+          <div>
+            <h3 className="font-semibold">🧪 Sandbox Result</h3>
+            <pre className="bg-gray-100 p-3 rounded text-sm overflow-x-auto">
+              {JSON.stringify(results.sandbox_result, null, 2)}
+            </pre>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
