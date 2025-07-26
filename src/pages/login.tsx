@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import useAuth from '../hooks/useAuth';
 
 export default function LoginPage() {
-  const { user, loading, loginWithGoogle, logout } = useAuth();
+  const { user, loading, loginWithGoogle} = useAuth();
   const router = useRouter();
 
   useEffect(() => {
