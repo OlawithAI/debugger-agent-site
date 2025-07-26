@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import NavBar from '@/components/NavBar';
+import Link from 'next/link';
 
 export default function FAQ() {
   return (
@@ -133,8 +134,11 @@ export default function FAQ() {
         <div className="mb-6">
           <h2 className="text-xl font-semibold">How do I upgrade my plan?</h2>
           <p className="text-gray-700 mt-2 text-base">
-            Navigate to your Dashboard, click "Upgrade Now," and select your preferred plan. You will be redirected to secure checkout, and your account will reflect your upgraded plan instantly. You can also visit our <a href="/plans" className="text-blue-600 underline">Plans Page</a> for details.
+            {"Navigate to your Dashboard, click \"Upgrade Now,\" and select your preferred plan. You will be redirected to secure checkout, and your account will reflect your upgraded plan instantly. You can also visit our "}
+            <Link href="/plans" className="text-blue-600 underline">Plans Page</Link>
+            {" for details."}
           </p>
+
         </div>
 
         <div className="mb-6">
@@ -147,7 +151,7 @@ export default function FAQ() {
         <div className="mb-6">
           <h2 className="text-xl font-semibold">Need further help?</h2>
           <p className="text-gray-700 mt-2 text-base">
-            Contact us at <a href="mailto:support@debuggeragent.com" className="text-blue-600 underline">support@debuggeragent.com</a> for personalized assistance, or check our <a href="/documentation" className="text-blue-600 underline">Documentation</a> to get started.
+            Contact us at <a href="mailto:support@debuggeragent.com" className="text-blue-600 underline">support@debuggeragent.com</a> for personalized assistance, or check our <Link href="/documentation" className="text-blue-600 underline">Documentation</Link> to get started.
           </p>
         </div>
       </div>

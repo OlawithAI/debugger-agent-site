@@ -1,5 +1,6 @@
 import Head from "next/head";
 import NavBar from "@/components/NavBar";
+import Link from 'next/link';
 
 export default function Documentation() {
   return (
@@ -67,7 +68,7 @@ export default function Documentation() {
           🛠️ Debugger Agent Documentation
         </h1>
         <p className="mb-4 text-center text-gray-600 dark:text-gray-300">
-          Learn how to instantly debug, fix, and verify your code using Debugger Agent's AI-powered tools.
+          Learn how to instantly debug, fix, and verify your code using Debugger Agent&apos;s AI-powered tools...
           Access our secure sandbox, API usage guides, and upgrade your workflow today.
         </p>
 
@@ -110,7 +111,7 @@ export default function Documentation() {
           <div>
             <h2 className="text-xl font-semibold">❓ FAQ</h2>
             <p className="text-sm text-gray-700 dark:text-gray-300">
-              Visit our <a href="/faq" className="text-blue-600 underline">FAQ page</a> for detailed answers on sessions, API usage, billing, and feature explanations.
+              Visit our <Link href="/faq" className="text-blue-600 underline">FAQ page</Link> for detailed answers on sessions, API usage, billing, and feature explanations.
             </p>
           </div>
         </div>

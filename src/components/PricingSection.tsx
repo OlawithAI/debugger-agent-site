@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { PLANS } from '../lib/pricing_data';
+import Link from 'next/link';
 
 export default function PricingSection() {
   const [yearly, setYearly] = useState(false);
@@ -36,12 +37,12 @@ export default function PricingSection() {
                   ))}
                 </ul>
               </div>
-              <a
+              <Link
                 href="/documentation"
                 className={`px-4 py-2 rounded-md font-medium inline-block mt-4 ${plan.id === 'pro_ultra' ? 'bg-blue-600 text-white hover:bg-blue-700' : plan.id === 'team_ultra' ? 'bg-green-600 text-white hover:bg-green-700' : 'bg-blue-600 text-white hover:bg-blue-700'}`}
               >
                 {plan.priceMonthly === 0 ? 'Get Started Free' : 'Choose Plan'}
-              </a>
+              </Link>
             </div>
           ))}
         </div>

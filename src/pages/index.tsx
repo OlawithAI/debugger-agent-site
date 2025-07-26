@@ -4,6 +4,7 @@ import { useAuth } from '@/lib/useAuth';
 import NavBar from '@/components/NavBar';
 import PricingSection from '@/components/PricingSection';
 import FAQSection from '@/components/FAQSection';
+import Link from 'next/link';
 
 export default function Home() {
   const router = useRouter();
@@ -81,12 +82,12 @@ export default function Home() {
       <section className="text-center py-12 bg-white dark:bg-gray-900">
         <h2 className="text-2xl font-semibold mb-4">Need Help?</h2>
         <p className="mb-4">Check out our detailed documentation to get the most out of Debugger Agent.</p>
-        <a
+        <Link
           href="/documentation"
           className="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
         >
           View Documentation
-        </a>
+        </Link>
       </section>
     </div>
   );

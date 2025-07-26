@@ -4,7 +4,7 @@ import { useAuth } from '@/lib/useAuth';
 import NavBar from '@/components/NavBar';
 import { PLANS } from '@/lib/pricing_data';
 import LogViewer from '@/components/LogViewer';
-
+import Link from 'next/link';
 
 interface UserData {
   uid: string;
@@ -64,12 +64,12 @@ export default function Dashboard() {
         <li>🔁 CI/CD integration (Ultra only)</li>
         <li>💬 Unlimited follow-up sessions</li>
       </ul>
-      <a
+      <Link
         href="/plans"
         className="inline-block mt-3 text-sm text-yellow-700 underline hover:text-yellow-900 font-medium"
       >
         See upgrade options →
-      </a>
+      </Link>
     </div>
   );
 };
@@ -229,16 +229,16 @@ export default function Dashboard() {
         )}
 
         <div className="mt-6 text-center">
-          <a
+          <Link
             href="/cicd"
             className="inline-block mt-6 text-sm text-blue-600 underline hover:text-blue-800"
           >
             🔁 Run CI/CD Debugger
-          </a>
+          </Link>
           <br />
 
-          <a href="/faq" className="text-blue-500 underline text-sm">
-           View FAQ</a>
+          <Link href="/faq" className="text-blue-500 underline text-sm">
+           View FAQ</Link>
 
           <LogViewer idToken={idToken} plan={userData.plan} />
 
