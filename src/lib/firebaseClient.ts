@@ -1,7 +1,3 @@
-console.log("🪐 TEST VAR:", process.env.NEXT_PUBLIC_TEST_VAR);
-console.log("🪐 API KEY:", process.env.NEXT_PUBLIC_FIREBASE_API_KEY);
-
-
 import { initializeApp, getApps } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 

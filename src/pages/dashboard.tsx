@@ -30,7 +30,8 @@ export default function Dashboard() {
   const [idToken, setIdToken] = useState<string>('');
   
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
+
 
   useEffect(() => {
     if (!loading && !user) {
@@ -48,6 +49,13 @@ export default function Dashboard() {
           setUserData(data);
           setIdToken(idToken);
         } catch (error) {
+          console.error('🔥 Firebase login error:', error);
+          if (error instanceof Error) {
+            setError(error.message);
+          } else {
+            setError(String(error));
+         }
+
           if (process.env.NODE_ENV === 'development') console.error('Login failed:', error);
 
         }  
