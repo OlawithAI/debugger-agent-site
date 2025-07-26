@@ -29,6 +29,7 @@ export default function Dashboard() {
   const [upgrading, setUpgrading] = useState(false);
   const [idToken, setIdToken] = useState<string>('');
   
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_error, setError] = useState(null);
 
   useEffect(() => {
