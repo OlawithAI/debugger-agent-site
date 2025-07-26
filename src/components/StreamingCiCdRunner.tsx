@@ -3,13 +3,19 @@ import { useAuth } from '@/lib/useAuth';
 
 
 export default function StreamingCiCdRunner() {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { user } = useAuth();
   const [code, setCode] = useState('');
   const [logs, setLogs] = useState('');
   const [language, setLanguage] = useState('Python'); // ✅ Default language
+  
+  
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [output, setOutput] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [results, setResults] = useState<any>(null);
 
   const handleRun = async () => {
@@ -48,9 +54,10 @@ export default function StreamingCiCdRunner() {
 
       const data = await res.json();
       setResults(data);
-    } catch (err: any) {
+    } catch (err) {
+      const error = err as Error;
       console.error(err);
-      setError(err.message);
+      setError(error.message);
     } finally {
       setLoading(false);
     }

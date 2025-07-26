@@ -3,6 +3,9 @@ import { auth } from '../lib/firebaseClient';
 import { GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from 'firebase/auth';
 import type { User } from 'firebase/auth';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { getAuth } from "firebase/auth";
+
 
 export default function useAuth() {
   const [user, setUser] = useState<User | null>(null);

@@ -23,9 +23,14 @@ export default function Dashboard() {
   const [copySuccess, setCopySuccess] = useState('');
   const [showInfo, setShowInfo] = useState(false);
   const [showUpgrade, setShowUpgrade] = useState(false);
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
   const [upgrading, setUpgrading] = useState(false);
   const [idToken, setIdToken] = useState<string>('');
+  
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     if (!loading && !user) {
