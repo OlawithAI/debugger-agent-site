@@ -47,12 +47,13 @@ export default function Dashboard() {
           if (!res.ok) throw new Error(`Server error: ${res.status}`);
           const data = await res.json();
 
+          setUserData(data);
+          setIdToken(idToken);
+
           if (data.api_key) {
             localStorage.setItem('debugger_api_key', data.api_key);
           }
-          
-          setUserData(data);
-          setIdToken(idToken);
+
         } catch (error) {
           console.error('🔥 Firebase login error:', error);
           if (error instanceof Error) {
