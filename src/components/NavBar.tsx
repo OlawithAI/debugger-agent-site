@@ -19,6 +19,9 @@ export default function NavBar() {
             <Link href="/dashboard" className="text-sm hover:underline">
               Dashboard
             </Link>
+             <Link href="/feedback" className="text-sm text-blue-500 hover:underline">
+              🐞 Feedback
+             </Link>
             <button
               onClick={logout}
               className="bg-red-500 text-white px-3 py-1 rounded text-sm"

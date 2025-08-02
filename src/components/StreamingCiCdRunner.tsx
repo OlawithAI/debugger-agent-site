@@ -65,6 +65,11 @@ export default function StreamingCiCdRunner() {
 
   return (
     <div className="space-y-4">
+      {code && (
+       <>
+         <p className="text-sm text-gray-500 mt-2">
+           Language is auto-detected after pasting code. You can override below if needed.
+         </p>
       <div>
         <label className="block text-sm font-medium">Language:</label>
         <select
@@ -80,6 +85,8 @@ export default function StreamingCiCdRunner() {
           <option value="C++">C++</option>
         </select>
       </div>
+      </>
+     )}
 
       <div>
         <label className="block text-sm font-medium">Code:</label>
@@ -117,15 +124,15 @@ export default function StreamingCiCdRunner() {
         <div className="mt-6 space-y-4">
           <div>
             <h3 className="font-semibold">🔍 Analysis</h3>
-            <pre className="bg-gray-100 p-3 rounded text-sm whitespace-pre-wrap">{results.analysis}</pre>
+            <pre className="bg-gray-800 text-white text-sm p-4 rounded overflow-x-auto">{results.analysis}</pre>
           </div>
           <div>
             <h3 className="font-semibold">🛠️ Fixed Code</h3>
-            <pre className="bg-gray-100 p-3 rounded text-sm overflow-x-auto">{results.fixed_code}</pre>
+            <pre className="bg-gray-800 text-white text-sm p-4 rounded overflow-x-auto">{results.fixed_code}</pre>
           </div>
           <div>
             <h3 className="font-semibold">🧪 Sandbox Result</h3>
-            <pre className="bg-gray-100 p-3 rounded text-sm overflow-x-auto">
+            <pre className="bg-gray-800 text-white text-sm p-4 rounded overflow-x-auto">
               {JSON.stringify(results.sandbox_result, null, 2)}
             </pre>
           </div>

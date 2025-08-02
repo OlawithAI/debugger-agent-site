@@ -167,6 +167,10 @@ export default function Dashboard() {
 
         <div className="bg-white dark:bg-gray-800 rounded shadow p-4 mb-4">
           <p className="font-semibold mb-2">Your API Key:</p>
+          <p className="text-sm text-gray-500 mb-2">
+            Use this API key with your extension or CI/CD calls. Paste it into the Debugger Agent extension or call <code className="bg-gray-100 px-1 rounded text-xs">/api/debug</code> with it.
+          </p>
+
           {userData.api_key ? (
   <div className="flex items-center">
     <input
@@ -244,9 +248,9 @@ export default function Dashboard() {
         <div className="mt-6 text-center">
           <Link
             href="/cicd"
-            className="inline-block mt-6 text-sm text-blue-600 underline hover:text-blue-800"
+            className="mt-6 inline-block bg-blue-600 text-white px-6 py-3 rounded-md text-lg font-medium hover:bg-blue-700"
           >
-            🔁 Run CI/CD Debugger
+            🚀 Run Debugger + Sandbox
           </Link>
           <br />
 
