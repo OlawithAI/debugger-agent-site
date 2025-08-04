@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState  } from 'react';
 import { useAuth } from '@/lib/useAuth';
 
 
@@ -14,24 +14,28 @@ export default function StreamingCiCdRunner() {
   const [output, setOutput] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [apiKey, setApiKey] = useState(() => localStorage.getItem('debugger_api_key') || '');
+  const [apiKey, setApiKey] = useState('');
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [results, setResults] = useState<any>(null);
 
+  useEffect(() => {
+    const storedKey = localStorage.getItem('debugger_api_key');
+    if (storedKey) {
+      setApiKey(storedKey);
+    }
+  }, []);
+
   const handleRun = async () => {
     if (!code.trim()) return alert('Please paste code to debug.');
+    if (!apiKey) return alert('Please enter your API key.');
+
     setLoading(true);
     setError('');
     setOutput('');
     setResults(null);
 
     try {
-      if (!apiKey) {
-        alert("Please enter your API key below.");
-        return;
-      }
-
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/cicd/run-debug-and-sandbox`, {
         method: 'POST',
         headers: {
@@ -39,9 +43,9 @@ export default function StreamingCiCdRunner() {
           'x-api-key': apiKey,
         },
         body: JSON.stringify({
-          code: code,
+          code,
           logs: logs || [],
-          language: language || "python",
+          language: language || 'python',
           github_meta: null,
         }),
       });
