@@ -5,6 +5,7 @@ import { useAuth } from '@/lib/useAuth';
 export default function StreamingCiCdRunner() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { user } = useAuth();
+  const [idToken, setIdToken] = useState('');
   const [code, setCode] = useState('');
   const [logs, setLogs] = useState('');
   const [language, setLanguage] = useState('Python'); // ✅ Default language
@@ -14,21 +15,23 @@ export default function StreamingCiCdRunner() {
   const [output, setOutput] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [apiKey, setApiKey] = useState('');
+  const [apiKey, setApiKey] = useState<string>('');
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [results, setResults] = useState<any>(null);
 
   useEffect(() => {
-    const storedKey = localStorage.getItem('debugger_api_key');
-    if (storedKey) {
-      setApiKey(storedKey);
-    }
-  }, []);
+    const fetchToken = async () => {
+      if (user) {
+        const token = await user.getIdToken();
+        setIdToken(token);
+      }
+    };
+    fetchToken();
+  }, [user]);
 
   const handleRun = async () => {
     if (!code.trim()) return alert('Please paste code to debug.');
-    if (!apiKey) return alert('Please enter your API key.');
 
     setLoading(true);
     setError('');
@@ -40,7 +43,7 @@ export default function StreamingCiCdRunner() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-api-key': apiKey,
+          'Authorization': `Bearer ${idToken}`,
         },
         body: JSON.stringify({
           code,
@@ -65,7 +68,7 @@ export default function StreamingCiCdRunner() {
       setLoading(false);
     }
   };
-
+  
   return (
     <div className="space-y-4">
       {code && (
