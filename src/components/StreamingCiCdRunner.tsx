@@ -14,6 +14,7 @@ export default function StreamingCiCdRunner() {
   const [output, setOutput] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [apiKey, setApiKey] = useState(() => localStorage.getItem('debugger_api_key') || '');
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [results, setResults] = useState<any>(null);
@@ -26,10 +27,8 @@ export default function StreamingCiCdRunner() {
     setResults(null);
 
     try {
-      const apiKey = localStorage.getItem('debugger_api_key');
       if (!apiKey) {
-        console.error("❌ No API key found in localStorage.");
-        alert("Please go to /dashboard to fetch your API key first.");
+        alert("Please enter your API key below.");
         return;
       }
 
@@ -109,6 +108,21 @@ export default function StreamingCiCdRunner() {
           placeholder="Paste logs or error messages here"
         />
       </div>
+
+      <div>
+  <label className="block text-sm font-medium mt-2">API Key (if missing):</label>
+  <input
+    type="text"
+    value={apiKey}
+    onChange={(e) => {
+      setApiKey(e.target.value);
+      localStorage.setItem('debugger_api_key', e.target.value);
+    }}
+    className="w-full p-2 border rounded font-mono text-sm bg-white"
+    placeholder="Paste your API key here"
+  />
+</div>
+
 
       <button
         onClick={handleRun}
