@@ -14,15 +14,22 @@ export function useAuth() {
       setLoading(false);
 
       if (currentUser) {
-        const token = await getIdToken(currentUser, true);
-        const tokenResult = await getIdTokenResult(currentUser);
+  try {
+    const token = await getIdToken(currentUser, true);
+    const tokenResult = await getIdTokenResult(currentUser);
 
-        setIdToken(token);
-        setClaims(tokenResult.claims); 
-      } else {
-        setIdToken(null);
-        setClaims(null);
-      }
+    setIdToken(token);
+    setClaims(tokenResult.claims); 
+  } catch (err) {
+    console.error("❌ Failed to get Firebase token/claims:", err instanceof Error ? err.message : err);
+    setIdToken(null);
+    setClaims(null);
+  }
+} else {
+  setIdToken(null);
+  setClaims(null);
+}
+
     });
 
     return () => unsubscribe();
