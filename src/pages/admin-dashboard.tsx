@@ -1,12 +1,20 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from "@/lib/useAuth";
 
+type MetricType = Record<string, unknown>;
+type LogType = {
+  uid?: string;
+  plan?: string;
+  timestamp?: string;
+  [key: string]: unknown;
+};
+
 export default function AdminDashboard() {
   const { user, loading, idToken, claims } = useAuth();
-  const [metrics, setMetrics] = useState<any>(null);
-  const [logs, setLogs] = useState<any[]>([]);
-  const [firebaseLogs, setFirebaseLogs] = useState<any[]>([]);
-  const [error, setError] = useState('');
+  const [metrics, setMetrics] = useState<MetricType | null>(null);
+  const [logs, setLogs] = useState<LogType[]>([]);
+  const [firebaseLogs, setFirebaseLogs] = useState<LogType[]>([]);
+  const [error, setError] = useState<string>("");
 
   // Filters
   const [uidFilter, setUidFilter] = useState('');
@@ -33,7 +41,7 @@ export default function AdminDashboard() {
         setMetrics(metricsData);
         setLogs(logsData.logs || []);
         setFirebaseLogs(firebaseData.logs || []);
-      } catch (err: any) {
+      } catch (err) {
         console.error(err);
         setError("❌ Failed to load admin metrics or logs.");
       }
@@ -109,4 +117,3 @@ export default function AdminDashboard() {
     </div>
   );
 }
-
