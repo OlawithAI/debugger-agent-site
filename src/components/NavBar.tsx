@@ -1,8 +1,23 @@
 import Link from 'next/link';
 import { useAuth } from '@/lib/useAuth';
+import { useEffect, useState } from 'react';
+import { getIdTokenResult } from 'firebase/auth';
 
 export default function NavBar() {
   const { user, logout } = useAuth();
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    const checkClaims = async () => {
+      if (user) {
+        const tokenResult = await getIdTokenResult(user);
+        setIsAdmin(tokenResult.claims.admin === true);
+      } else {
+        setIsAdmin(false);
+      }
+    };
+    checkClaims();
+  }, [user]);
 
   return (
     <nav className="flex justify-between items-center px-6 py-3 bg-white dark:bg-gray-900 shadow mb-4">
@@ -19,9 +34,14 @@ export default function NavBar() {
             <Link href="/dashboard" className="text-sm hover:underline">
               Dashboard
             </Link>
-             <Link href="/feedback" className="text-sm text-blue-500 hover:underline">
+            {isAdmin && (
+              <Link href="/admin-dashboard" className="text-sm text-green-600 hover:underline">
+                Admin
+              </Link>
+            )}
+            <Link href="/feedback" className="text-sm text-blue-500 hover:underline">
               🐞 Feedback
-             </Link>
+            </Link>
             <button
               onClick={logout}
               className="bg-red-500 text-white px-3 py-1 rounded text-sm"
