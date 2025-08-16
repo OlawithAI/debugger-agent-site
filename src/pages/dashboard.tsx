@@ -39,7 +39,8 @@ export default function Dashboard() {
     } else if (user) {
       user.getIdToken().then(async (idToken: string) => {
         try {
-          const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/firebase-login`, {
+          const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://api.usecodedebugger.com';
+          const res = await fetch(`${apiUrl}/api/auth/firebase-login`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ idToken }),
