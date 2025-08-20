@@ -256,7 +256,7 @@ export default function Dashboard() {
           <Link
             href="https://marketplace.visualstudio.com/items?itemName=usecodedebugger.codedebugger"
             target="_blank"
-            className="text-sm text-blue-500 underline mt-2 inline-block"
+            className="inline-block bg-blue-600 text-white px-6 py-3 rounded-md text-lg font-medium hover:bg-blue-700 mb-4"
           >
             🧩 Install the VS Code Extension
           </Link>
